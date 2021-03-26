@@ -5,7 +5,7 @@ public class Speler {
     private int laatsteWorp;
     private int huidigePlek = 0;
 
-    Speler(String naam){
+    Speler(String naam) {
         this.naam = naam;
     }
 
@@ -13,14 +13,27 @@ public class Speler {
         return this.naam;
     }
 
-    public int setLaatsteWorp(Dobbelsteen dobbelSteen){
+    public void setLaatsteWorp(Dobbelsteen dobbelSteen) {
         this.laatsteWorp = dobbelSteen.gooien();
+    }
+
+    public int getLaatsteWorp() {
         return this.laatsteWorp;
     }
 
-//    public int getLaatsteWorp(){
-//        return this.laatsteWorp;
-//    }
+    public void setHuidigePlek() {
+        this.huidigePlek += getLaatsteWorp();
+        if (this.huidigePlek > 63) {
+            System.out.println("Je bent over de 63 gegaan, achteruit.. ");
+            this.huidigePlek = 63 - (this.huidigePlek - 63);
+        }
+    }
 
+    public void specialMove(int veld){
+        this.huidigePlek = veld;
+    }
 
+    public int getHuidigePlek() {
+        return this.huidigePlek;
+    }
 }
