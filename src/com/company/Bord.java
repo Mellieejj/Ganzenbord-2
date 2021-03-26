@@ -12,14 +12,14 @@ public class Bord {
     public Bord() {
         for (int i = 0; i <= 63; i++) {
             Vakje veld = switch (i) {
-                case 0 -> new Vakje(i, "Start");
-                case 6 -> new Vakje(i, "Brug");
-                case 19 -> new Vakje(i, "Herberg");
-                case 31 -> new Vakje(i, "Put");
-                case 42 -> new Vakje(i, "Doolhof");
-                case 52 -> new Vakje(i, "Gevangenis");
-                case 58 -> new Vakje(i, "Dood");
-                case 63 -> new Vakje(i, "Finish");
+                case 0 -> new SpeciaalVakje(i, "Start");
+                case 6 -> new SpeciaalVakje(i, "Brug");
+                case 19 -> new SpeciaalVakje(i, "Herberg");
+                case 31 -> new SpeciaalVakje(i, "Put");
+                case 42 -> new SpeciaalVakje(i, "Doolhof");
+                case 52 -> new SpeciaalVakje(i, "Gevangenis");
+                case 58 -> new SpeciaalVakje(i, "Dood");
+                case 63 -> new SpeciaalVakje(i, "Finish");
                 default -> new Vakje(i);
             };
 
@@ -36,7 +36,7 @@ public class Bord {
         System.out.println("Alle spelers staan op start.");
     }
 
-    public void checkVeld(Vakje veld, Speler speler) {
+    public void checkVeld(SpeciaalVakje veld, Speler speler) {
         veld.veldCheck(speler);
     }
 
@@ -47,14 +47,21 @@ public class Bord {
         if (input.equals("g")) {
             speler.setLaatsteWorp(dobbelsteen);
             speler.setHuidigePlek();
-            System.out.println("Je hebt " + speler.getLaatsteWorp() + " gegooid. Je staat op veld " + speler.getHuidigePlek() + " " + speelvelden.get(speler.getHuidigePlek()).speciaal);
+            System.out.println(
+                    "Je hebt " +
+                    speler.getLaatsteWorp() + " gegooid. Je staat op veld " + speler.getHuidigePlek() + " " +
+                    ((speelvelden.get(speler.getHuidigePlek()) instanceof SpeciaalVakje) ? ((SpeciaalVakje) speelvelden.get(speler.getHuidigePlek())).speciaal : "")
+            );
             for (Vakje vak : speelvelden) {
                 if (vak.spelersOpVakje.contains(speler)) {
                     vak.removeSpelerOpVakje(speler);
                 }
             }
             speelvelden.get(speler.getHuidigePlek()).addSpelersOpVakje(speler);
-            checkVeld(speelvelden.get(speler.getHuidigePlek()), speler);
+            
+            if (speelvelden.get(speler.getHuidigePlek()) instanceof SpeciaalVakje){
+                checkVeld((SpeciaalVakje) speelvelden.get(speler.getHuidigePlek()), speler);
+            }
 
             System.out.println("Speelveld: " + speelvelden.get(speler.getHuidigePlek()).vakNummer);
             System.out.println("aantal spelers: " + speelvelden.get(speler.getHuidigePlek()).spelersOpVakje.size());

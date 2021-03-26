@@ -9,13 +9,10 @@ public class Main {
         ganzenbord.nieuwSpel();
         ganzenbord.spel();
 
-
 //        for (int i = 0; i < ganzenbord.speelvelden.size(); i++) {
 //            System.out.println(ganzenbord.speelvelden.get(i).vakNummer);
 //            System.out.println(ganzenbord.speelvelden.get(i).speciaal);
 //            System.out.println(ganzenbord.speelvelden.get(i).spelersOpVakje);
 //        }
-
-
     }
 }
